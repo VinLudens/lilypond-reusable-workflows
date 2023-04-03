@@ -9,7 +9,7 @@ on:
         required: true
         type: string
       MAIN_FILE:
-        requires: true
+        required: true
         type: string
 
 jobs:
