@@ -1,6 +1,6 @@
 ---
 
-name: Make a Release
+name: Reusable Workflow to Make a Release
 
 on:
   workflow_call:
@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  make-release:
+  make-github-release:
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     needs: build
