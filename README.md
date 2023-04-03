@@ -1,2 +1,7 @@
 # lilypond-reusable-workflows
-Workflows to be re-used for my lilypond music sheet repositories
+
+See [re-using workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows) to find out about this setup.
+
+# How to use this?
+
+TODO
