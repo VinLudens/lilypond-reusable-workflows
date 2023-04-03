@@ -11,9 +11,6 @@ on:
       RELEASE_BRANCH:
         required: true
         type: string
-    secrets:
-      github-token:
-        required: true
 
 jobs:
 
