@@ -1,0 +1,30 @@
+---
+
+name: Reusable Workflow to Build Lilypond Project
+
+on:
+  workflow_call:
+    inputs:
+      LILYPOND_VERSION:
+        required: true
+        type: string
+      MAIN_FILE:
+        requires: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - run: wget -O lilypond.tar.gz https://gitlab.com/lilypond/lilypond/-/releases/v${{ inputs.LILYPOND_VERSION }}/downloads/lilypond-${{ inputs.LILYPOND_VERSION }}-linux-x86_64.tar.gz
+      - run: tar xzf lilypond.tar.gz
+      - run: ./lilypond-${{ inputs.LILYPOND_VERSION }}/bin/lilypond -I openlilylib -dno-point-and-click ${{ inputs.MAIN_FILE }}.ly
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Lilypond Output
+          path: |
+            ${{ inputs.MAIN_FILE }}.pdf
+            ${{ inputs.MAIN_FILE }}.midi
