@@ -1,0 +1,35 @@
+---
+
+name: Make a Release
+
+on:
+  workflow_call:
+    inputs:
+      MAIN_FILE:
+        required: true
+        type: string
+
+jobs:
+
+  make-release:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - name: Get current date (for tag)
+        id: date
+        run: echo "CURRENT=$(date +%F)" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v3
+      - uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: compile-lilypond.yml
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.date.outputs.CURRENT }}
+          body_path: changelog/CHANGELOG.latest
+          files: |
+            ${{ inputs.MAIN_FILE }}.pdf
+            ${{ inputs.MAIN_FILE }}.midi
