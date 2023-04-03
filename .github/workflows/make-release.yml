@@ -28,5 +28,5 @@ jobs:
           tag_name: ${{ steps.date.outputs.CURRENT }}
           body_path: changelog/CHANGELOG.latest
           files: |
-            ${{ inputs.MAIN_FILE }}.pdf
-            ${{ inputs.MAIN_FILE }}.midi
+            Lilypond Output/${{ inputs.MAIN_FILE }}.pdf
+            Lilypond Output/${{ inputs.MAIN_FILE }}.midi
