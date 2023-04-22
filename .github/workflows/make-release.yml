@@ -22,11 +22,13 @@ jobs:
       - uses: dawidd6/action-download-artifact@v2
         with:
           workflow: compile-lilypond.yml
+      - name: Create CHANGELOG.latest file
+        run: cp "$(ls -v changelog/* | tail -1)" CHANGELOG.latest
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.date.outputs.CURRENT }}
-          body_path: changelog/CHANGELOG.latest
+          body_path: CHANGELOG.latest
           files: |
             Lilypond Output/${{ inputs.MAIN_FILE }}.pdf
             Lilypond Output/${{ inputs.MAIN_FILE }}.midi
