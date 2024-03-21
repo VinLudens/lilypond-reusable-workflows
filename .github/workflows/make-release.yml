@@ -18,14 +18,14 @@ jobs:
       - name: Get current date (for tag)
         id: date
         run: echo "CURRENT=$(date +%F)" >> $GITHUB_OUTPUT
-      - uses: actions/checkout@v3
-      - uses: dawidd6/action-download-artifact@v2
+      - uses: actions/checkout@v4
+      - uses: dawidd6/action-download-artifact@v3
         with:
           workflow: compile-lilypond.yml
       - name: Create CHANGELOG.latest file
         run: cp "$(ls -v changelog/* | tail -1)" CHANGELOG.latest
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.date.outputs.CURRENT }}
           body_path: CHANGELOG.latest
